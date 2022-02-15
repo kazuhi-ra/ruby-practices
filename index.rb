@@ -1,4 +1,9 @@
 require "optparse"
+
+require "./shot"
+require "./frame"
+require "./game"
+
 opt = OptionParser.new
 
 # 入力を配列に格納
@@ -10,7 +15,8 @@ begin
     .flatten
     .select.with_index { |count, index| index < 18 || (index >= 18 && !count.nil?) }
 rescue
-  puts "正しいく入力してください"
+  puts "正しいスコアを入力してください"
+  return
 end
 
 # フレーム毎に配列に格納した二次元配列にする
@@ -23,48 +29,12 @@ counts_per_frame = [*0..9].map.with_index do |_, index|
   end
 end
 
-# 点数の種類を付け加える
-enrich_counts_per_frame = counts_per_frame.map do |counts|
-  type = if (counts[0] == 10)
-      "strike"
-    elsif (counts[0] + counts[1] == 10)
-      "spare"
-    else
-      "normal"
-    end
-
-  { counts: counts, type: type }
+# インスタンス生成
+shots = counts_per_frame.map do |counts|
+  counts.map { |count| Shot.new(count) }
 end
+frames = shots.map { |shot| Frame.new(shot) }
+game = Game.new(frames)
 
-score = 0
-enrich_counts_per_frame.each_with_index do |counts_data, index|
-  counts = counts_data[:counts]
-  last_frame = index == 9
-  second_from_the_last_frame = index == 8
-
-  next_counts = enrich_counts_per_frame[index + 1][:counts] unless last_frame
-  after_next_counts = enrich_counts_per_frame[index + 2][:counts] unless second_from_the_last_frame || last_frame
-
-  case counts_data[:type]
-  when "normal"
-    score += counts.reduce { |result, count| result + count }
-  when "spare"
-    if last_frame
-      score += counts.reduce { |result, count| result + count }
-    else
-      score += counts.reduce { |result, count| result + count } + next_counts[0]
-    end
-  when "strike"
-    if last_frame
-      score += counts.reduce { |result, count| result + count }
-    else
-      if next_counts[1].nil?
-        score += 10 + next_counts[0] + after_next_counts[0]
-      else
-        score += 10 + next_counts[0] + next_counts[1]
-      end
-    end
-  end
-end
-
-puts score
+# 実行
+puts game.score
