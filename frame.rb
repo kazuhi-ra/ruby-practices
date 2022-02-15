@@ -5,9 +5,9 @@ class Frame
   end
 
   def type
-    if (@counts[0] == 10)
+    if (first_shot == 10)
       "strike"
-    elsif (@counts[0] + @counts[1] == 10)
+    elsif (first_shot + second_shot == 10)
       "spare"
     else
       "normal"
