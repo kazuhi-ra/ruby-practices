@@ -31,13 +31,13 @@ class Game
         if last_frame(index)
           result
         else
-          result + @frames[index + 1].first_shot
+          result + next_frame(index).first_shot
         end
       when "strike"
         if last_frame(index)
           result
         else
-          if @frames[index + 1].second_shot.nil?
+          if next_frame(index).second_shot.nil?
             result + next_frame(index).first_shot + after_next_frame(index).first_shot
           else
             result + next_frame(index).first_shot + next_frame(index).second_shot
