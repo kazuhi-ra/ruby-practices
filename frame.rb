@@ -1,7 +1,9 @@
 class Frame
+  attr_accessor :number
   # [shot1, shot2]
-  def initialize(shots)
+  def initialize(shots, number)
     @counts = shots.map { |shot| shot.count }
+    @number = number
   end
 
   def type

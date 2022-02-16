@@ -33,7 +33,7 @@ end
 shots_per_frame = counts_per_frame.map do |counts|
   counts.map { |count| Shot.new(count) }
 end
-frames = shots_per_frame.map { |shots| Frame.new(shots) }
+frames = shots_per_frame.map.with_index { |shots, index| Frame.new(shots, index) }
 game = Game.new(frames)
 
 # 実行
