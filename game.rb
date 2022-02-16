@@ -31,16 +31,16 @@ class Game
         if last_frame(frame.number)
           result
         else
-          result + next_frame(frame.number).first_shot
+          result + next_frame(frame.number).first_count
         end
       when "strike"
         if last_frame(frame.number)
           result
         else
-          if next_frame(frame.number).second_shot.nil?
-            result + next_frame(frame.number).first_shot + after_next_frame(frame.number).first_shot
+          if next_frame(frame.number).second_count.nil?
+            result + next_frame(frame.number).first_count + after_next_frame(frame.number).first_count
           else
-            result + next_frame(frame.number).first_shot + next_frame(frame.number).second_shot
+            result + next_frame(frame.number).first_count + next_frame(frame.number).second_count
           end
         end
       end

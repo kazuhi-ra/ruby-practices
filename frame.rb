@@ -7,20 +7,20 @@ class Frame
   end
 
   def type
-    if (first_shot == 10)
+    if (first_count == 10)
       "strike"
-    elsif (first_shot + second_shot == 10)
+    elsif (first_count + second_count == 10)
       "spare"
     else
       "normal"
     end
   end
 
-  def first_shot
+  def first_count
     @counts[0]
   end
 
-  def second_shot
+  def second_count
     @counts[1]
   end
 
