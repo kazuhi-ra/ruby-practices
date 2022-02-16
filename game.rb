@@ -23,24 +23,24 @@ class Game
   end
 
   def bonus
-    @frames.each_with_index.reduce(0) do |result, (frame, index)|
+    @frames.reduce(0) do |result, frame|
       case frame.type
       when "normal"
         result
       when "spare"
-        if last_frame(index)
+        if last_frame(frame.number)
           result
         else
-          result + next_frame(index).first_shot
+          result + next_frame(frame.number).first_shot
         end
       when "strike"
-        if last_frame(index)
+        if last_frame(frame.number)
           result
         else
-          if next_frame(index).second_shot.nil?
-            result + next_frame(index).first_shot + after_next_frame(index).first_shot
+          if next_frame(frame.number).second_shot.nil?
+            result + next_frame(frame.number).first_shot + after_next_frame(frame.number).first_shot
           else
-            result + next_frame(index).first_shot + next_frame(index).second_shot
+            result + next_frame(frame.number).first_shot + next_frame(frame.number).second_shot
           end
         end
       end
