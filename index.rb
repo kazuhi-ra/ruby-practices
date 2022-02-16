@@ -30,10 +30,10 @@ counts_per_frame = [*0..9].map.with_index do |_, index|
 end
 
 # インスタンス生成
-shots = counts_per_frame.map do |counts|
+shots_per_frame = counts_per_frame.map do |counts|
   counts.map { |count| Shot.new(count) }
 end
-frames = shots.map { |shot| Frame.new(shot) }
+frames = shots_per_frame.map { |shots| Frame.new(shots) }
 game = Game.new(frames)
 
 # 実行
