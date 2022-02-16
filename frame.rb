@@ -23,10 +23,12 @@ class Frame
   end
 
   def score
-    if second_shot.nil?
-      first_shot
-    else
-      @counts.reduce(0) { |result, count| result + count }
+    @counts.reduce(0) do |result, count|
+      if count.nil?
+        result + 0
+      else
+        result + count
+      end
     end
   end
 end
