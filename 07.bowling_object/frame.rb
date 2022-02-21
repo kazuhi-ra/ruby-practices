@@ -8,14 +8,12 @@ class Frame
     @number = frame_number
   end
 
-  def type
-    if (first_count == 10)
-      "strike"
-    elsif (first_count + second_count == 10)
-      "spare"
-    else
-      "normal"
-    end
+  def strike?
+    first_count == 10
+  end
+
+  def spare?
+    !second_count.nil? && first_count + second_count == 10
   end
 
   def first_count

@@ -46,16 +46,7 @@ class Game
 
   def bonus
     @frames.reduce(0) do |result, frame|
-      case frame.type
-      when "normal"
-        result
-      when "spare"
-        if last_frame(frame.number)
-          result
-        else
-          result + next_frame(frame.number).first_count
-        end
-      when "strike"
+      if (frame.strike?)
         if last_frame(frame.number)
           result
         else
@@ -65,6 +56,14 @@ class Game
             result + next_frame(frame.number).first_count + next_frame(frame.number).second_count
           end
         end
+      elsif (frame.spare?)
+        if last_frame(frame.number)
+          result
+        else
+          result + next_frame(frame.number).first_count
+        end
+      else
+        result
       end
     end
   end
