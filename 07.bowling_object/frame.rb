@@ -1,9 +1,11 @@
+require_relative "./shot"
+
 class Frame
   attr_reader :number
-  # [shot1, shot2]
-  def initialize(shots, number)
-    @counts = shots.map { |shot| shot.count }
-    @number = number
+  # counts: [3, 6], [10, null], ...
+  def initialize(counts, frame_number)
+    @shots = counts.map { |count| Shot.new(count) }
+    @number = frame_number
   end
 
   def type
@@ -17,19 +19,19 @@ class Frame
   end
 
   def first_count
-    @counts[0]
+    @shots[0].count
   end
 
   def second_count
-    @counts[1]
+    @shots[1].count
   end
 
   def score
-    @counts.reduce(0) do |result, count|
-      if count.nil?
+    @shots.reduce(0) do |result, shot|
+      if shot.count.nil?
         result + 0
       else
-        result + count
+        result + shot.count
       end
     end
   end
