@@ -40,14 +40,14 @@ class Game
     @frames[index + 2] unless index == 8 || index == 9
   end
 
-  def last_frame(index)
+  def last_frame?(index)
     index == 9
   end
 
   def bonus
     @frames.reduce(0) do |result, frame|
       if (frame.strike?)
-        if last_frame(frame.number)
+        if last_frame?(frame.number)
           result
         else
           if next_frame(frame.number).second_count.nil?
@@ -57,7 +57,7 @@ class Game
           end
         end
       elsif (frame.spare?)
-        if last_frame(frame.number)
+        if last_frame?(frame.number)
           result
         else
           result + next_frame(frame.number).first_count
