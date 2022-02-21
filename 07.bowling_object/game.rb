@@ -1,7 +1,35 @@
+require_relative "./shot"
+require_relative "./frame"
+
 class Game
   # [frame1, frame2, .., frame10]
-  def initialize(frames)
-    @frames = frames
+  def initialize(shots)
+    begin
+      counts = shots
+        .split(",")
+        .map { |count| count == "X" ? [10, nil] : count.to_i } # ストライクの場合2投目がないのでnilで埋める
+        .flatten
+        .select.with_index { |count, index| index < 18 || (index >= 18 && !count.nil?) }
+
+      counts_per_frame = [*0..9].map.with_index do |_, index|
+        # 10フレーム目が3投ある場合
+        if (index == 9 && counts.length > 20)
+          [counts[18], counts[19], counts[20]]
+        else
+          [counts[2 * index], counts[2 * index + 1]]
+        end
+      end
+
+      # インスタンス生成
+      shots_per_frame = counts_per_frame.map do |counts|
+        counts.map { |count| Shot.new(count) }
+      end
+
+      @frames = shots_per_frame.map.with_index { |shots, index| Frame.new(shots, index) }
+    rescue
+      puts "正しいスコアを入力してください"
+      return
+    end
   end
 
   def score_ex_bonus
