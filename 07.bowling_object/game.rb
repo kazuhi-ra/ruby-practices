@@ -1,21 +1,19 @@
 require_relative "./frame"
 
 class Game
+  NUMBER_OF_FRAME = 10
   # [frame1, frame2, .., frame10]
   def initialize(shots)
     begin
-      counts = shots
-        .split(",")
-        .map { |count| count == "X" ? [10, nil] : count.to_i } # ストライクの場合2投目がないのでnilで埋める
-        .flatten
-        .select.with_index { |count, index| index < 18 || (index >= 18 && !count.nil?) }
+      counts = shots.split(",")
 
-      counts_per_frame = [*0..9].map.with_index do |_, index|
-        # 10フレーム目が3投ある場合
-        if (index == 9 && counts.length > 20)
-          [counts[18], counts[19], counts[20]]
+      counts_per_frame = [*1..NUMBER_OF_FRAME].map do |frame_number|
+        if frame_number === 10
+          counts.shift(counts.size) # 10投目は残った要素全てを渡す
+        elsif counts[0].include?("X")
+          counts.shift(1) << nil # ストライクの場合
         else
-          [counts[2 * index], counts[2 * index + 1]]
+          counts.shift(2)
         end
       end
 
