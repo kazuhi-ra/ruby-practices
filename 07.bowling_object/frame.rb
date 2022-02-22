@@ -29,12 +29,8 @@ class Frame
   end
 
   def score
-    @shots.reduce(0) do |result, shot|
-      if shot.count.nil?
-        result + 0
-      else
-        result + shot.count
-      end
-    end
+    @shots
+      .map { |shot| shot.count }
+      .sum
   end
 end

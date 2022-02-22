@@ -25,9 +25,9 @@ class Game
   end
 
   def score_ex_bonus
-    @frames.reduce(0) do |result, frame|
-      result + frame.score
-    end
+    @frames
+      .map { |frame| frame.score }
+      .sum
   end
 
   def next_frame(index)
