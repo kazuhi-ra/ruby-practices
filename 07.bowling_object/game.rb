@@ -17,7 +17,7 @@ class Game
         end
       end
 
-      @frames = counts_per_frame.map.with_index { |counts, frame_number| Frame.new(counts, frame_number) }
+      @frames = counts_per_frame.map.with_index(1) { |counts, frame_number| Frame.new(counts, frame_number) }
     rescue
       puts "正しいスコアを入力してください"
       return
@@ -31,15 +31,15 @@ class Game
   end
 
   def next_frame(index)
-    @frames[index + 1]
+    @frames[index]
   end
 
   def after_next_frame(index)
-    @frames[index + 2] unless index == 8 || index == 9
+    @frames[index + 1] unless index == 9 || index == 10
   end
 
   def last_frame?(index)
-    index == 9
+    index == 10
   end
 
   def bonus
