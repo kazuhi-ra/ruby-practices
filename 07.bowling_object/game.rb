@@ -1,13 +1,13 @@
 require_relative "./frame"
 
 class Game
-  NUMBER_OF_FRAME = 10
+  NUMBER_OF_FRAMES = 10
   # [frame1, frame2, .., frame10]
   def initialize(shots)
     begin
       counts = shots.split(",")
 
-      counts_per_frame = [*1..NUMBER_OF_FRAME].map do |frame_number|
+      counts_per_frame = [*1..NUMBER_OF_FRAMES].map do |frame_number|
         if frame_number === 10
           counts.shift(counts.size) # 10投目は残った要素全てを渡す
         elsif counts[0].include?("X")
