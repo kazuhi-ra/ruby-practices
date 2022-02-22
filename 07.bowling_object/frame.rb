@@ -13,7 +13,7 @@ class Frame
   end
 
   def spare?
-    !second_count.nil? && first_count + second_count == 10
+    !strike? && first_count + second_count == 10
   end
 
   def number_of_shots
