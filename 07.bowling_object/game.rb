@@ -30,12 +30,12 @@ class Game
       .sum
   end
 
-  def next_frame(index)
-    @frames[index]
+  def next_frame(frame_number)
+    @frames[frame_number]
   end
 
-  def after_next_frame(index)
-    @frames[index + 1] unless index == 9 || index == 10
+  def after_next_frame(frame_number)
+    @frames[frame_number + 1] unless frame_number == 9 || frame_number == 10
   end
 
   def bonus
