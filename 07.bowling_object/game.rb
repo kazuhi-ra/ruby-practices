@@ -38,13 +38,9 @@ class Game
     @frames[index + 1] unless index == 9 || index == 10
   end
 
-  def last_frame?(index)
-    index == 10
-  end
-
   def bonus
     @frames.reduce(0) do |result, frame|
-      if last_frame?(frame.number)
+      if frame.last?
         return result
       end
 

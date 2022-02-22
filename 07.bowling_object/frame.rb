@@ -28,6 +28,10 @@ class Frame
     @shots[1].count
   end
 
+  def last?
+    @number == 10
+  end
+
   def score
     @shots
       .map { |shot| shot.count }
