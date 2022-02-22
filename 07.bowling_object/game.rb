@@ -11,7 +11,7 @@ class Game
         if frame_number === 10
           counts.shift(counts.size) # 10投目は残った要素全てを渡す
         elsif counts[0].include?("X")
-          counts.shift(1) << nil # ストライクの場合
+          counts.shift(1) # ストライクの場合
         else
           counts.shift(2)
         end
@@ -48,7 +48,7 @@ class Game
         if last_frame?(frame.number)
           result
         else
-          if next_frame(frame.number).second_count.nil?
+          if next_frame(frame.number).number_of_shots == 1 # 次のフレームが1投の場合
             result + next_frame(frame.number).first_count + after_next_frame(frame.number).first_count
           else
             result + next_frame(frame.number).first_count + next_frame(frame.number).second_count

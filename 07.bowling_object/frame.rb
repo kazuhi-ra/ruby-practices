@@ -2,7 +2,7 @@ require_relative "./shot"
 
 class Frame
   attr_reader :number
-  # counts: [3, 6], [10, null], ...
+  # counts: [3, 6], ["X"], ...
   def initialize(counts, frame_number)
     @shots = counts.map { |count| Shot.new(count) }
     @number = frame_number
@@ -14,6 +14,10 @@ class Frame
 
   def spare?
     !second_count.nil? && first_count + second_count == 10
+  end
+
+  def number_of_shots
+    @shots.size
   end
 
   def first_count
