@@ -7,17 +7,15 @@ class Game
     begin
       counts = shots.split(",")
 
-      counts_per_frame = [*1..NUMBER_OF_FRAMES].map do |frame_number|
+      @frames = [*1..NUMBER_OF_FRAMES].map do |frame_number|
         if frame_number === 10
-          counts.shift(counts.size)
+          Frame.new(counts.shift(counts.size), frame_number)
         elsif counts[0].include?("X")
-          counts.shift(1)
+          Frame.new(counts.shift(1), frame_number)
         else
-          counts.shift(2)
+          Frame.new(counts.shift(2), frame_number)
         end
       end
-
-      @frames = counts_per_frame.map.with_index(1) { |counts, frame_number| Frame.new(counts, frame_number) }
     rescue
       puts "正しいスコアを入力してください"
       return
