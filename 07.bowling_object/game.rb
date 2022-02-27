@@ -40,20 +40,18 @@ class Game
 
   def bonus
     @frames.sum do |frame|
-      if frame.last?
-        0
-      else
-        if (frame.strike?)
-          if next_frame(frame.number).number_of_shots == 1 # 次のフレームが1投の場合
-            next_frame(frame.number).first_count + after_next_frame(frame.number).first_count
-          else
-            next_frame(frame.number).first_count + next_frame(frame.number).second_count
-          end
-        elsif (frame.spare?)
-          next_frame(frame.number).first_count
+      next 0 if frame.last?
+
+      if (frame.strike?)
+        if next_frame(frame.number).number_of_shots == 1 # 次のフレームが1投の場合
+          next_frame(frame.number).first_count + after_next_frame(frame.number).first_count
         else
-          0
+          next_frame(frame.number).first_count + next_frame(frame.number).second_count
         end
+      elsif (frame.spare?)
+        next_frame(frame.number).first_count
+      else
+        0
       end
     end
   end
