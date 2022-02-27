@@ -2,16 +2,16 @@ require_relative "./frame"
 
 class Game
   NUMBER_OF_FRAMES = 10
-  # [frame1, frame2, .., frame10]
+
   def initialize(shots)
     begin
       counts = shots.split(",")
 
       counts_per_frame = [*1..NUMBER_OF_FRAMES].map do |frame_number|
         if frame_number === 10
-          counts.shift(counts.size) # 10投目は残った要素全てを渡す
+          counts.shift(counts.size)
         elsif counts[0].include?("X")
-          counts.shift(1) # ストライクの場合
+          counts.shift(1)
         else
           counts.shift(2)
         end
@@ -43,7 +43,7 @@ class Game
       next 0 if frame.last?
 
       if (frame.strike?)
-        if next_frame(frame.number).number_of_shots == 1 # 次のフレームが1投の場合
+        if next_frame(frame.number).number_of_shots == 1
           next_frame(frame.number).first_count + after_next_frame(frame.number).first_count
         else
           next_frame(frame.number).first_count + next_frame(frame.number).second_count
