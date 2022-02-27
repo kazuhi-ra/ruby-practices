@@ -4,7 +4,7 @@ class Frame
   attr_reader :number
   # counts: [3, 6], ["X"], ...
   def initialize(counts, frame_number)
-    @shots = counts.map { |count| Shot.new(count) }
+    @shots = counts.map { Shot.new(_1) }
     @number = frame_number
   end
 
@@ -34,7 +34,7 @@ class Frame
 
   def score
     @shots
-      .map { |shot| shot.count }
+      .map { _1.count }
       .sum
   end
 end

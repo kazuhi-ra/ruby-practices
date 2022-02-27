@@ -26,7 +26,7 @@ class Game
 
   def score_excluding_bonus
     @frames
-      .map { |frame| frame.score }
+      .map { _1.score }
       .sum
   end
 
@@ -57,6 +57,6 @@ class Game
   end
 
   def score
-    score_ex_bonus + bonus
+    score_excluding_bonus + bonus
   end
 end
