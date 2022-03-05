@@ -8,7 +8,7 @@ class Game
       counts = shots.split(",")
 
       @frames = [*1..NUMBER_OF_FRAMES].map do |frame_number|
-        if frame_number === 10
+        if frame_number == 10
           Frame.new(counts.shift(counts.size), frame_number)
         elsif counts[0] == "X"
           Frame.new(counts.shift(1), frame_number)
