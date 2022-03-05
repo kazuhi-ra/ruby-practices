@@ -24,7 +24,7 @@ class Game
 
   def score_excluding_bonus
     @frames
-      .map { _1.score }
+      .map(&:score)
       .sum
   end
 

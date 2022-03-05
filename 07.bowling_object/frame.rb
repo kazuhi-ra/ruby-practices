@@ -34,7 +34,7 @@ class Frame
 
   def score
     @shots
-      .map { _1.count }
+      .map(&:count)
       .sum
   end
 end
